@@ -1,0 +1,24 @@
+name: Test the project
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout of the repository
+        uses: actions/checkout@v3.3.0
+      - name: Install JAVA
+        uses: actions/setup-java@v3.10.0
+        with:
+         distribution: 'microsoft'
+         java-version: '17'
+      - name: Build the project
+        run: mvn package
